@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "danotes-cc355": {
+      "hosting": {
+        "danotes": [
+          "danotes-cc355"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "danotes-cc355"
+  }
+}
