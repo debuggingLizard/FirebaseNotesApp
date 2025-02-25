@@ -14,13 +14,13 @@ import { FormsModule } from '@angular/forms';
 export class AddNoteDialogComponent {
   @Output() addDialogClosed: EventEmitter<boolean> = new EventEmitter();
   title = "";
-  description = "";
+  content = "";
 
   constructor(public noteService: NoteListService){}
 
   closeDialog() {
     this.title = "";
-    this.description = "";
+    this.content = "";
     this.addDialogClosed.emit(false);
   }
 
@@ -28,7 +28,7 @@ export class AddNoteDialogComponent {
     let note:Note = {
       type: "note",
       title: this.title,
-      content: this.description,
+      content: this.content,
       marked: false,
     }
     this.noteService.addNote(note);

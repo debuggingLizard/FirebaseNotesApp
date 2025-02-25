@@ -28,10 +28,34 @@ export class NoteListService {
   }
 
   // method for editing a note
-  async updateNote(colId: string, docId: string, item:{}) {
-    await updateDoc(this.getSingleDocRef(colId, docId), {item}).catch(
-      (err) => {console.error(err);}
-    );
+  async updateNote(note:Note) {
+    if (note.id) {
+      let docRef = this.getSingleDocRef(this.getColIdFromNote(note), note.id);
+      await updateDoc(docRef, this.getCleanJSON(note)).catch(
+        (err) => {console.error(err);}
+      );
+    }
+  }
+
+  // helper function for edit note
+  getColIdFromNote(note:Note):string {
+    if(note.type == "note") {
+      return'notes'
+    } else {
+      return 'trash'
+    }
+  }
+
+  // helper function for edit note
+  // necessary because updateDoc needs type JSON, but note in this case has type Note, 
+  // so note used in function updateNote() needs to be converted into basic JSON
+  getCleanJSON(note:Note):{} {
+    return {
+      type: note.type,
+      title: note.title,
+      content: note.content,
+      marked: note.marked
+    }
   }
 
   // method for adding a note
