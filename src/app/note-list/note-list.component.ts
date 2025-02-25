@@ -22,12 +22,16 @@ export class NoteListComponent {
   constructor(private noteService: NoteListService) {
   }
 
-  getListNotes():Note[] {
-    return this.noteService.normalNotes;
-  }
-
-  getListTrash():Note[] {
-    return this.noteService.trashNotes;
+  getList():Note[] {
+    if (this.status == "notes") {
+      if (this.favFilter == "all") {
+        return this.noteService.normalNotes;
+      } else {
+        return this.noteService.normalMarkedNotes;
+      }
+    } else {
+      return this.noteService.trashNotes;
+    }
   }
 
   changeFavFilter(filter:"all" | "fav"){
